@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_netflix_cover/Pages/HomePage.dart';
+import 'package:flutter_netflix_cover/Pages/SearchPage.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -11,7 +12,7 @@ class _MainPageState extends State<MainPage> {
 
   List<Widget> pages = [
     HomePage(),
-    HomePage(),
+    SearchPage(),
     HomePage(),
     HomePage(),
     HomePage()
