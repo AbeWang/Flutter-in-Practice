@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_netflix_cover/Pages/SearchPage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -85,9 +87,12 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Icon(Icons.play_arrow, size: 30, color: Colors.black),
-                          Text("播放", style: TextStyle(
-                              color: Colors.black, fontSize: 18
-                          ))
+                          Text("播放",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18
+                              ),
+                          )
                         ],
                       ),
                     ),
@@ -141,6 +146,9 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(8.0),
                     onLongPress: (){
                       _globalKey.currentState?.showSnackBar(SnackBar(content: Text("動畫名稱")));
+                    },
+                    onTap: (){
+                      Navigator.of(context).push(CupertinoPageRoute(builder: (BuildContext context)=>SearchPage()));
                     },
                   ),
                 ),

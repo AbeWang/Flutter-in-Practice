@@ -1,3 +1,4 @@
+import 'package:custom_navigator/custom_navigator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_netflix_cover/Pages/HomePage.dart';
@@ -9,6 +10,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+
+  GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   List<Widget> pages = [
     HomePage(),
@@ -23,11 +26,16 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[currentIndex],
+      body: CustomNavigator(
+        home: pages[currentIndex],
+        navigatorKey: navigatorKey,
+        pageRoute: PageRoutes.cupertinoPageRoute,
+      ),
       bottomNavigationBar: CupertinoTabBar(
         currentIndex: currentIndex,
         onTap: (index) {
           setState(() {
+            navigatorKey.currentState!.maybePop();
             currentIndex = index;
           });
         },
