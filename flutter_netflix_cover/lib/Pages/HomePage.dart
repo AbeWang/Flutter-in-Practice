@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_netflix_cover/Pages/SearchPage.dart';
+import 'package:flutter_netflix_cover/Pages/DetailPage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -148,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                       _globalKey.currentState?.showSnackBar(SnackBar(content: Text("動畫名稱")));
                     },
                     onTap: (){
-                      Navigator.of(context).push(CupertinoPageRoute(builder: (BuildContext context)=>SearchPage()));
+                      Navigator.of(context).push(CupertinoPageRoute(builder: (BuildContext context)=>DetailPage()));
                     },
                   ),
                 ),
