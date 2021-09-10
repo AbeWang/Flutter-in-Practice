@@ -9,14 +9,26 @@ class DetailPage extends StatefulWidget {
   _DetailPageState createState() => _DetailPageState();
 }
 
-class _DetailPageState extends State<DetailPage> {
+class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
+  late TabController _tabController = TabController(length: 2, vsync: this);
+  int selectedIndex = 0;
+
+  @override
+  void initState() {
+    _tabController = TabController(initialIndex: selectedIndex, length: 2, vsync: this);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return _buildMainDetail();
+    return ListView.builder(itemCount: 2, itemBuilder: (context, index) {
+      return index == 0 ? _buildMainDetail(): _buildEpisode();
+    });
   }
 
   Widget _buildMainDetail() {
     return Container(
+      height: MediaQuery.of(context).size.height * .8,
       child: Stack(
         fit: StackFit.expand,
         children: [
@@ -160,6 +172,116 @@ class _DetailPageState extends State<DetailPage> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildEpisode() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: TabBar(
+            indicator: BoxDecoration(
+                border: Border(
+                    top: BorderSide(color: Colors.red, width: 4.0)
+                )
+            ),
+            controller: _tabController,
+            tabs: [
+              Tab(text: "集數",),
+              Tab(text: "類似影片",)
+            ],
+            isScrollable: true,
+            onTap: (index) {
+              setState(() {
+                selectedIndex = index;
+                _tabController.animateTo(index);
+              });
+            },
+          ),
+        ),
+        IndexedStack(
+          index: selectedIndex,
+          children: [
+            _buildList(),
+            Center(
+              child: Text("No Data!!", style: TextStyle(color: Colors.white),),
+            )
+          ],
+        )
+      ],
+    );
+  }
+
+  Widget _buildList() {
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Container(
+            margin: EdgeInsets.symmetric(vertical: 8.0),
+            decoration: BoxDecoration(
+              color: Colors.grey.withOpacity(0.5),
+              borderRadius: BorderRadius.circular(4.0)
+            ),
+            padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(padding: const EdgeInsets.only(right: 8.0),
+                  child: Text("Season 1", style: TextStyle(color: Colors.white)),
+                ),
+                Icon(Icons.arrow_drop_down, color: Colors.white)
+              ],
+            ),
+          ),
+        ),
+        for (int i=0; i<8; i+=1) _buildCell()
+      ],
+    );
+  }
+
+  Widget _buildCell() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset("assets/book.png", width: 120.0, height: 60.0, fit: BoxFit.cover),
+                ),
+                Icon(Icons.play_circle_outline, size: 40.0, color: Colors.white)
+              ],
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Name", style: TextStyle(color: Colors.white)),
+                  Text("Duration", style: TextStyle(color: Colors.white))
+                ],
+              ),
+            ),
+            Icon(Icons.file_download, color: Colors.white)
+          ],
+        ),
+        Text(
+          "Hello~ Hello~ Hello~ Hello~ Hello~ Hello~ Hello~ Hello~ Hello~ Hello~ Hello~Hello~ Hello~ Hello~ Hello~ Hello~ Hello~ Hello~ Hello~ Hello~ Hello~ Hello~Hello~ Hello~ Hello~ Hello~ Hello~ Hello~Hello~ Hello~ Hello~ Hello~ Hello~ Hello~",
+          style: TextStyle(color: Colors.white, fontSize: 12.0),
+          maxLines: 3,
+          overflow: TextOverflow.ellipsis,
+        ),
+        SizedBox(
+          height: 8.0,
+        )
+      ],
     );
   }
 }
