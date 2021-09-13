@@ -22,54 +22,71 @@ class _ComingSoonPageState extends State<ComingSoonPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      scrollDirection: Axis.vertical,
-      children: List.generate(8, (index) {
-        return Column(
+    return SafeArea(
+        top: true,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Center(
-              child: _controller.value.isPlaying
-                  ? AspectRatio(
-                  aspectRatio: 16/9,
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _controller.pause();
-                    });
-                  },
-                  child: VideoPlayer(_controller),
-                ),
-              ): AspectRatio(
-                  aspectRatio: 16/9,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Container(
-                      color: Colors.grey,
-                      child: Image.asset('assets/book.png', fit: BoxFit.cover,),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _controller.play();
-                        });
-                      },
-                      child: Icon(
-                        Icons.play_circle_outline,
-                        size: 60.0, color: Colors.white,
-                      ),
-                    )
-                  ],
-                ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 20.0, bottom: 10.0),
+                child: Text("Notifications", style: TextStyle(color: Colors.white, fontSize: 24.0)),
               ),
             ),
-            Text("Flutter video", style: TextStyle(color: Colors.white, fontSize: 20.0),),
-            SizedBox(
-              height: 20.0,
+            Expanded(
+                child: ListView(
+                  scrollDirection: Axis.vertical,
+                  children: List.generate(8, (index) {
+                    return Column(
+                      children: [
+                        Center(
+                          child: _controller.value.isPlaying
+                              ? AspectRatio(
+                            aspectRatio: 16/9,
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _controller.pause();
+                                });
+                              },
+                              child: VideoPlayer(_controller),
+                            ),
+                          ): AspectRatio(
+                            aspectRatio: 16/9,
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Container(
+                                  color: Colors.grey,
+                                  child: Image.asset('assets/book.png', fit: BoxFit.cover,),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      _controller.play();
+                                    });
+                                  },
+                                  child: Icon(
+                                    Icons.play_circle_outline,
+                                    size: 60.0, color: Colors.white,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        Text("Flutter video", style: TextStyle(color: Colors.white, fontSize: 20.0),),
+                        SizedBox(
+                          height: 20.0,
+                        )
+                      ],
+                    );
+                  }),
+                )
             )
           ],
-        );
-      }),
+        )
     );
   }
 }

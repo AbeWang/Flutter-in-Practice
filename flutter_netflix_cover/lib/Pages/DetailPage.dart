@@ -206,9 +206,7 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
           index: selectedIndex,
           children: [
             _buildList(),
-            Center(
-              child: Text("No Data!!", style: TextStyle(color: Colors.white),),
-            )
+            _buildRelatedSeries()
           ],
         )
       ],
@@ -238,8 +236,31 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
             ),
           ),
         ),
-        for (int i=0; i<8; i+=1) _buildCell()
+        for (int i=0; i<6; i+=1) _buildCell()
       ],
+    );
+  }
+
+  Widget _buildRelatedSeries() {
+    return GridView.count(
+      crossAxisCount: 3,
+      shrinkWrap: true,
+      primary: false,
+      padding: const EdgeInsets.symmetric(vertical: 20.0),
+      crossAxisSpacing: 10.0,
+      mainAxisSpacing: 10.0,
+      childAspectRatio: 9/12,
+      children: List.generate(12, (index) {
+        return Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.0),
+            image: DecorationImage(
+              image: AssetImage("assets/book.png"),
+                fit: BoxFit.cover
+            )
+          ),
+        );
+      }),
     );
   }
 
