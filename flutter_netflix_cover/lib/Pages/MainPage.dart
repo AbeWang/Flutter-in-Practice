@@ -1,6 +1,7 @@
 import 'package:custom_navigator/custom_navigator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_netflix_cover/Pages/ComingSoonPage.dart';
 import 'package:flutter_netflix_cover/Pages/HomePage.dart';
 import 'package:flutter_netflix_cover/Pages/SearchPage.dart';
 
@@ -16,7 +17,7 @@ class _MainPageState extends State<MainPage> {
   List<Widget> pages = [
     HomePage(),
     SearchPage(),
-    HomePage(),
+    ComingSoonPage(),
     HomePage(),
     HomePage()
   ];
