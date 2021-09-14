@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_netflix_cover/Pages/NotificationPage.dart';
 import 'package:video_player/video_player.dart';
 
 class ComingSoonPage extends StatefulWidget {
@@ -31,7 +33,12 @@ class _ComingSoonPageState extends State<ComingSoonPage> {
               alignment: Alignment.centerRight,
               child: Padding(
                 padding: const EdgeInsets.only(right: 20.0, bottom: 10.0),
-                child: Text("Notifications", style: TextStyle(color: Colors.white, fontSize: 24.0)),
+                child: GestureDetector(
+                  child: Text("Notifications", style: TextStyle(color: Colors.white, fontSize: 24.0)),
+                  onTap: (){
+                    Navigator.of(context).push(CupertinoPageRoute(builder:(BuildContext context)=>NotificationPage()));
+                  },
+                ),
               ),
             ),
             Expanded(
