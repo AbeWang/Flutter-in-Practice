@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_netflix_cover/Pages/DetailPage.dart';
+import 'package:flutter_netflix_cover/Pages/DialogSelectCategory.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -29,11 +30,45 @@ class _HomePageState extends State<HomePage> {
               child: Image.asset("assets/book.png")
             ),
             title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text("節目", style: TextStyle(color: Colors.white, fontSize: 16.0)),
-                Text("電影", style: TextStyle(color: Colors.white, fontSize: 16.0)),
-                Text("我的片單", style: TextStyle(color: Colors.white, fontSize: 16.0))
+                GestureDetector(
+                  onTap: () {
+                    var result = showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return DialogSelectCategory();
+                        });
+                  },
+                  child: Row(
+                    children: [
+                      Text("節目", style: TextStyle(color: Colors.white, fontSize: 20.0)),
+                      Padding(
+                          padding: const EdgeInsets.all(8.0),
+                        child: Icon(Icons.arrow_drop_down),
+                      )
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    var result = showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return DialogSelectCategory();
+                        }
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      Text("所有類型", style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 14.0)),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Icon(Icons.arrow_drop_down),
+                      )
+                    ],
+                  ),
+                )
               ],
             ),
           ),
