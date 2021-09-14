@@ -17,14 +17,40 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       key: _globalKey,
       backgroundColor: Colors.black,
-      body: SingleChildScrollView(
-        child: Column(mainAxisSize: MainAxisSize.max, children: [
-          _buildMajorRecommendedVideo(),
-          _buildWonderfulPreview(),
-          _buildRecommendedMenu("現正熱播"),
-          _buildRecommendedMenu("為你推薦"),
-          _buildTopChartMenu("台灣排行榜前 8 名")
-        ])
+      body:CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            floating: true,
+            pinned: false,
+            snap: false,
+            backgroundColor: Colors.transparent,
+            leading: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset("assets/book.png")
+            ),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text("節目", style: TextStyle(color: Colors.white, fontSize: 16.0)),
+                Text("電影", style: TextStyle(color: Colors.white, fontSize: 16.0)),
+                Text("我的片單", style: TextStyle(color: Colors.white, fontSize: 16.0))
+              ],
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [_buildMajorRecommendedVideo(),
+                _buildWonderfulPreview(),
+                _buildRecommendedMenu("現正熱播"),
+                _buildRecommendedMenu("為你推薦"),
+                _buildTopChartMenu("台灣排行榜前 8 名"),
+                SizedBox(
+                  height: 30.0,
+                )
+              ]
+            ),
+          )
+        ],
       )
     );
   }
