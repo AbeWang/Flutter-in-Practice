@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_netflix_cover/Pages/MainPage.dart';
+import 'package:flutter_netflix_cover/Pages/UserPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -54,7 +54,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
             width: startAnimation ? 150.0 : 250.0,
             child: Image.asset("assets/book.png"),
           onEnd: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>MainPage()));
+            Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>UserPage()));
           }))
       )
     );
