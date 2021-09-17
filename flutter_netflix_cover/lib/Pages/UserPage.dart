@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_netflix_cover/Models/User.dart';
+import 'package:flutter_netflix_cover/Pages/EditUserPage.dart';
 import 'package:flutter_netflix_cover/Pages/MainPage.dart';
 
 class UserPage extends StatefulWidget {
@@ -91,7 +92,14 @@ class _UserPageState extends State<UserPage> {
   Widget _buildUser(User user) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => MainPage()));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (_) => editMode ? EditUserPage(user): MainPage())).then((value) {
+              if (value == 1) {
+                setState(() {});
+              } else {
+                print("No change");
+              }
+        });
       },
       child: Container(
         child: Column(
