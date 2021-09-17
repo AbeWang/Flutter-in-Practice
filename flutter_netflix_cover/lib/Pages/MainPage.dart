@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_netflix_cover/Pages/ComingSoonPage.dart';
 import 'package:flutter_netflix_cover/Pages/HomePage.dart';
+import 'package:flutter_netflix_cover/Pages/MorePage.dart';
 import 'package:flutter_netflix_cover/Pages/SearchPage.dart';
 
 class MainPage extends StatefulWidget {
@@ -19,7 +20,7 @@ class _MainPageState extends State<MainPage> {
     SearchPage(),
     ComingSoonPage(),
     HomePage(),
-    HomePage()
+    MorePage()
   ];
 
   int currentIndex = 0;
