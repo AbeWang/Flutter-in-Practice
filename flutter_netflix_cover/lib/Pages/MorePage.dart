@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_netflix_cover/Pages/AppSettingsPage.dart';
 
 class MorePage extends StatefulWidget {
   const MorePage({Key? key}) : super(key: key);
@@ -19,7 +20,15 @@ class _MorePageState extends State<MorePage> {
         children: [
           _buildUserList(),
           _buildEditButton(),
-          _buildShareLink()
+          _buildShareLink(),
+          ListTile(
+            leading: Icon(Icons.settings, color: Colors.white,),
+            trailing: Icon(Icons.arrow_right_alt_rounded, color: Colors.white),
+            title: Text("App Settings", style: TextStyle(color: Colors.white),),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (_) => AppSettingsPage()));
+            },
+          )
         ],
       ),
     );
