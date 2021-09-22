@@ -39,7 +39,8 @@ class _AppSettingsPageState extends State<AppSettingsPage> {
                 _smartDownload = value;
               });
             }),
-            _buildListTile(Icons.picture_in_picture_alt, "下載畫質", "標準", null, null)
+            _buildListTile(Icons.picture_in_picture_alt, "下載畫質", "標準", null, null),
+            _buildStorage()
           ],
         ),
       )
@@ -63,6 +64,71 @@ class _AppSettingsPageState extends State<AppSettingsPage> {
         trailing: switchState != null ? Switch(value: switchState, onChanged: (value) {
           function!(value);
         }): null,
+      ),
+    );
+  }
+
+  Widget _buildStorage() {
+    return Card(
+      color: Colors.white.withOpacity(0.2),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(height: 10.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("內部儲存空間", style: TextStyle(color: Colors.white),),
+              Text("Default", style: TextStyle(color: Colors.white),)
+            ],
+          ),
+          SizedBox(
+            height: 10.0,
+            child: Row(
+              children: [
+                Expanded(flex: 7, child: Container(color: Colors.grey,)),
+                Expanded(flex: 1, child: Container(color: Colors.blue,)),
+                Expanded(flex: 2, child: Container(color: Colors.white,))
+              ],
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 10.0,
+                    height: 10.0,
+                    color: Colors.grey,
+                  ),
+                  Text("已使用 107GB", style: TextStyle(color: Colors.white),)
+                ]
+              ),
+              Row(
+                  children: [
+                    Container(
+                      width: 10.0,
+                      height: 10.0,
+                      color: Colors.blue,
+                    ),
+                    Text("Flutter 247MB", style: TextStyle(color: Colors.white),)
+                  ]
+              ),
+              Row(
+                  children: [
+                    Container(
+                      width: 10.0,
+                      height: 10.0,
+                      color: Colors.white,
+                    ),
+                    Text("可用 11GB", style: TextStyle(color: Colors.white),)
+                  ]
+              )
+            ],
+          ),
+          SizedBox(height: 10.0)
+        ],
       ),
     );
   }
