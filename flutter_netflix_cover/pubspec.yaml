@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   custom_navigator: 0.3.0
   video_player: ^2.2.0
+  transparent_image: ^1.0.0
 
 dev_dependencies:
   flutter_test:

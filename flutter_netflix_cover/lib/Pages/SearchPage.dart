@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_netflix_cover/Models/Series.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -8,6 +10,15 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  List<Series> _series = [
+    Series("Flutter dog", "yo yo yo", "3:00", "https://img.ltn.com.tw/Upload/news/600/2019/03/30/phpUCF6ub.jpg", "Doggy"),
+    Series("Flutter dog", "yo yo yo", "3:00", "https://img.ltn.com.tw/Upload/news/600/2019/03/30/phpUCF6ub.jpg", "Doggy"),
+    Series("Flutter dog", "yo yo yo", "3:00", "https://img.ltn.com.tw/Upload/news/600/2019/03/30/phpUCF6ub.jpg", "Doggy"),
+    Series("Flutter dog", "yo yo yo", "3:00", "https://img.ltn.com.tw/Upload/news/600/2019/03/30/phpUCF6ub.jpg", "Doggy"),
+    Series("Flutter dog", "yo yo yo", "3:00", "https://img.ltn.com.tw/Upload/news/600/2019/03/30/phpUCF6ub.jpg", "Doggy"),
+    Series("Flutter dog", "yo yo yo", "3:00", "https://img.ltn.com.tw/Upload/news/600/2019/03/30/phpUCF6ub.jpg", "Doggy")
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,37 +60,53 @@ class _SearchPageState extends State<SearchPage> {
               ),
             ),
             Expanded(
-                child: ListView.builder(
-                  itemCount: 8,
-                  itemBuilder: (context, index) {
-                    return Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(4.0),
-                            child: SizedBox(
-                              width: 160,
-                              height: 80,
-                              child: Image.asset("assets/book.png", fit: BoxFit.cover,),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: Text(
-                                "Flutter Book",
-                                style: TextStyle(fontSize: 16.0, color: Colors.white),
+                child: StreamBuilder<List<Series>>(
+                  stream: _getSeries(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                        itemCount: _series.length,
+                        itemBuilder: (context, index) {
+                          return Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  child: SizedBox(
+                                    width: 160,
+                                    height: 80,
+                                    child: _buildNetworkImage(_series[index]),
+                                  ),
+                                ),
                               ),
-                            )
+                              Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      _series[index].title,
+                                      style: TextStyle(fontSize: 16.0, color: Colors.white),
+                                    ),
+                                  )
+                              ),
+                              Icon(
+                                Icons.play_arrow,
+                                size: 32.0,
+                                color: Colors.white,
+                              )
+                            ],
+                          );
+                        },
+                      );
+                    }
+                    return Center(
+                      child: SizedBox(
+                        width: 50.0,
+                        height: 50.0,
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation(Colors.red),
                         ),
-                        Icon(
-                          Icons.play_arrow,
-                          size: 32.0,
-                          color: Colors.white,
-                        )
-                      ],
+                      ),
                     );
                   },
                 )
@@ -88,5 +115,24 @@ class _SearchPageState extends State<SearchPage> {
         ),
       )
     );
+  }
+
+  Widget _buildNetworkImage(Series series) {
+    return FadeInImage.memoryNetwork(
+      placeholder: kTransparentImage,
+      image: "https://img.ltn.com.tw/Upload/news/600/2019/03/30/phpUCF6ub.jpg",
+      fit: BoxFit.cover,
+      imageErrorBuilder: (context, error, s) {
+        print('$error');
+        return Text('error $s');
+      },
+      fadeInDuration: Duration(milliseconds: 300),
+    );
+  }
+
+  Stream<List<Series>> _getSeries() {
+    return Stream.fromFuture(Future.delayed(Duration(seconds: 3), () {
+      return _series;
+    }));
   }
 }
