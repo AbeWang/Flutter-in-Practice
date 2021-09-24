@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_netflix_cover/Pages/DetailPage.dart';
 import 'package:flutter_netflix_cover/Pages/DialogSelectCategory.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -72,18 +73,26 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [_buildMajorRecommendedVideo(),
-                _buildWonderfulPreview(),
-                _buildRecommendedMenu("現正熱播"),
-                _buildRecommendedMenu("為你推薦"),
-                _buildTopChartMenu("台灣排行榜前 8 名"),
-                SizedBox(
-                  height: 30.0,
-                )
-              ]
-            ),
+          FutureBuilder(
+            future: _getData(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return SliverList(
+                  delegate: SliverChildListDelegate(
+                      [_buildMajorRecommendedVideo(),
+                        _buildWonderfulPreview(),
+                        _buildRecommendedMenu("現正熱播"),
+                        _buildRecommendedMenu("為你推薦"),
+                        _buildTopChartMenu("台灣排行榜前 8 名"),
+                        SizedBox(
+                          height: 30.0,
+                        )
+                      ]
+                  )
+                );
+              }
+              return _buildLoading();
+            }
           )
         ],
       )
@@ -358,6 +367,95 @@ class _HomePageState extends State<HomePage> {
         )
       ],
     );
+  }
+
+  Widget _buildLoading() {
+    Color _color = Colors.black.withOpacity(0.5);
+    return SliverList(
+      delegate: SliverChildListDelegate([
+        Shimmer.fromColors(
+          baseColor: Colors.grey,
+          highlightColor: Colors.white,
+          direction: ShimmerDirection.rtl,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 160.0,
+                height: 80.0,
+                margin: EdgeInsets.all(8.0),
+                color: _color,
+              ),
+              Container(
+                width: 200.0,
+                height: 20.0,
+                margin: EdgeInsets.all(8.0),
+                color: _color,
+              ),
+              Container(
+                width: 80.0,
+                height: 30.0,
+                margin: EdgeInsets.all(8.0),
+                color: _color,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                    width: 150.0,
+                    height: 20.0,
+                    margin: EdgeInsets.all(8.0),
+                    color: _color
+                ),
+              ),
+              SizedBox(
+                height: 120.0,
+                child: ListView(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  children: List.generate(4, (index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CircleAvatar(
+                        backgroundColor: _color,
+                        radius: 52.0,
+                      ),
+                    );
+                  }),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                    width: 150.0,
+                    height: 20.0,
+                    margin: EdgeInsets.all(8.0),
+                    color: _color
+                ),
+              ),
+              SizedBox(
+                height: 120.0,
+                child: ListView(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  children: List.generate(4, (index) {
+                    return Container(
+                      height: 120.0,
+                      width: 100.0,
+                      color: _color,
+                      margin: EdgeInsets.all(4.0),
+                    );
+                  }),
+                ),
+              )
+            ],
+          ),
+        )
+      ]),
+    );
+  }
+
+  Future _getData() {
+    return Future.delayed(Duration(seconds: 2), (){});
   }
 
 }

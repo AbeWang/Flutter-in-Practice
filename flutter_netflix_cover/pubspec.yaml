@@ -37,6 +37,7 @@ dependencies:
   custom_navigator: 0.3.0
   video_player: ^2.2.0
   transparent_image: ^1.0.0
+  shimmer: 1.1.1
 
 dev_dependencies:
   flutter_test:
