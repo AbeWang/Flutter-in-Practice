@@ -1,0 +1,12 @@
+{
+    "@@locale": "zh",
+    "helloWorld": "你好！！",
+    "@helloWorld": {
+        "description": "The conventional newborn programmer greeting"
+    },
+    "home": "主頁",
+    "search": "搜尋",
+    "coming": "即將到來",
+    "download": "下載",
+    "more": "更多"
+}

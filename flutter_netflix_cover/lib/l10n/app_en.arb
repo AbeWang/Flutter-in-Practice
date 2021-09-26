@@ -1,0 +1,19 @@
+{
+    "@@locale": "en",
+    "helloWorld": "Hello World!",
+    "@helloWorld": {
+        "description": "The conventional newborn programmer greeting"
+    },
+    "home": "Home",
+    "search": "Search",
+    "coming": "Coming",
+    "download": "Download",
+    "more": "More",
+    "yoyoyo": "{name}, YoYo~~!!",
+    "@yoyoyo": {
+        "description": "yo yo yo for name",
+        "placeholders": {
+            "name": {}
+        }
+    }
+}

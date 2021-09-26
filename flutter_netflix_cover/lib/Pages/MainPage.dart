@@ -5,6 +5,7 @@ import 'package:flutter_netflix_cover/Pages/ComingSoonPage.dart';
 import 'package:flutter_netflix_cover/Pages/HomePage.dart';
 import 'package:flutter_netflix_cover/Pages/MorePage.dart';
 import 'package:flutter_netflix_cover/Pages/SearchPage.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -46,11 +47,11 @@ class _MainPageState extends State<MainPage> {
         inactiveColor: Colors.grey,
         iconSize: 24.0,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
-          BottomNavigationBarItem(icon: Icon(Icons.search), title: Text("Search")),
-          BottomNavigationBarItem(icon: Icon(Icons.featured_play_list), title: Text("Coming")),
-          BottomNavigationBarItem(icon: Icon(Icons.file_download), title: Text("Download")),
-          BottomNavigationBarItem(icon: Icon(Icons.more_vert), title: Text("More")),
+          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text(AppLocalizations.of(context)!.home)),
+          BottomNavigationBarItem(icon: Icon(Icons.search), title: Text(AppLocalizations.of(context)!.search)),
+          BottomNavigationBarItem(icon: Icon(Icons.featured_play_list), title: Text(AppLocalizations.of(context)!.coming)),
+          BottomNavigationBarItem(icon: Icon(Icons.file_download), title: Text(AppLocalizations.of(context)!.download)),
+          BottomNavigationBarItem(icon: Icon(Icons.more_vert), title: Text(AppLocalizations.of(context)!.more)),
         ],
       ),
     );
