@@ -16,6 +16,8 @@ class _MainPageState extends State<MainPage> {
 
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
+  int notificationCount = 0;
+
   List<Widget> pages = [
     HomePage(),
     SearchPage(),
@@ -40,6 +42,7 @@ class _MainPageState extends State<MainPage> {
           setState(() {
             navigatorKey.currentState!.maybePop();
             currentIndex = index;
+            notificationCount++;
           });
         },
         backgroundColor: Colors.black,
@@ -47,13 +50,40 @@ class _MainPageState extends State<MainPage> {
         inactiveColor: Colors.grey,
         iconSize: 24.0,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text(AppLocalizations.of(context)!.home)),
+          BottomNavigationBarItem(icon: _buildHomeItemWithNotification(), title: Text(AppLocalizations.of(context)!.home)),
           BottomNavigationBarItem(icon: Icon(Icons.search), title: Text(AppLocalizations.of(context)!.search)),
           BottomNavigationBarItem(icon: Icon(Icons.featured_play_list), title: Text(AppLocalizations.of(context)!.coming)),
           BottomNavigationBarItem(icon: Icon(Icons.file_download), title: Text(AppLocalizations.of(context)!.download)),
           BottomNavigationBarItem(icon: Icon(Icons.more_vert), title: Text(AppLocalizations.of(context)!.more)),
         ],
       ),
+    );
+  }
+
+  Widget _buildHomeItemWithNotification() {
+    return Stack(
+      children: [
+        Icon(Icons.home),
+        if (notificationCount != 0) Positioned(
+          top: 0.0,
+          right: 0.0,
+          child: Transform.translate(
+            offset: Offset(3, -3),
+            child: Container(
+              padding: EdgeInsets.all(1.0),
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(6.0)
+              ),
+              constraints: BoxConstraints(
+                minHeight: 12.0,
+                minWidth: 12.0
+              ),
+              child: Text('$notificationCount', style: TextStyle(color: Colors.white, fontSize: 10.0), textAlign: TextAlign.center,)
+            ),
+          ),
+        )
+      ],
     );
   }
 }
